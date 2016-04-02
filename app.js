@@ -1,5 +1,5 @@
 var express = require('express');
-var AlchemyAPI = require('alchemy-api');
+var AlchemyAPI = require('node-alchemy');
 var alchemy = new AlchemyAPI('73fdf24054081a04c8778d53196c022aac5195b8');
 var app = express();
 var port = process.env.PORT || 3000;
