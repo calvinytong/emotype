@@ -17,7 +17,9 @@ app.get('/', function(req, res) {
         "showSourceText": 1
       };
   request({url:alchemyurl + 'calls/text/TextGetEmotion', qs:params}, function(err, response, body) {
-    console.log("Get response: " + response.docEmotions);
+    var data = JSON.parse(body);
+    res.send(body.docEmotions);
+    console.log("Get response: ");
   });
 });
 app.listen(port, function() {
