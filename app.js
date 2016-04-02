@@ -13,7 +13,7 @@ var SpotifyWebApi = require('spotify-web-api-node');
 
 var scopes = ['playlist-read-private', 'user-top-read'],
     redirectUri = 'http://emotype.herokuapp.com/callback',
-    clientId = '7aa17209a0744dba99ccba06f49e9681',
+    clientId = '7aa17209a0744dba99ccba06f49e9681';
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
 var spotifyApi = new SpotifyWebApi({
@@ -22,7 +22,7 @@ var spotifyApi = new SpotifyWebApi({
 });
 
 // Create the authorization URL
-var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+var authorizeURL = spotifyApi.createAuthorizeURL(scopes);
 
 
 // https://accounts.spotify.com:443/authorize?client_id=5fe01282e44241328a84e7c5cc169165&response_type=code&redirect_uri=https://example.com/callback&scope=user-read-private%20user-read-email&state=some-state-of-my-choice
