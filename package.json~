@@ -6,7 +6,7 @@
   "dependencies": {
     "express": "^4.x.x",
     "request":"*",
-    "spotify-web-api-node":"*",
+    "spotify-web-api-node":"*"
     "body-parser":"*"
   },
   "scripts": {

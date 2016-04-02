@@ -29,30 +29,56 @@ app.get('/', function (req, res) {
 });
 
 app.get('/spotify', function(req,res) {
-    getAccessToken();
-    var params = {
+    //getAccessToken(function(){});
+    spotifyApi.clientCredentialsGrant()
+    .then(function(data) {
+      //console.log('The access token expires in ' + data.body['expires_in']);
+      //console.log('The access token is ' + data.body['access_token']);
+
+      // Save the access token so that it's used in future calls
+      spotifyApi.setAccessToken(data.body['access_token']);
+          var params = {
         "playlist":null,
         "user":null
     };
     text = req.query.emotion;
     if(text==="joy") {
         params["playlist"]='6uTuhSs7qiEPfCI3QDHXsL';
-        params["user"]='spotify/';
+        params["user"]='spotify';
     } else if(text==="sadness") {
         params["playlist"]='6ejgjp55cJWGzcDOp4HpGC';
-        params["user"]='spotify/';
+        params["user"]='spotify';
     } else if(text==="disgust") {
         params["playlist"]='4GxkvXNhNxX6qxLqNNjg9D';
-        params["user"]='happy_psycho/';
+        params["user"]='happy_psycho';
     } else if(text==="anger") {
-
+        params["playlist"]='1xTwVvC5y0I4NNdQPowOdh';
+        params["user"]='dero.spencer';
     } else if(text==="fear") {
-
+        //TODO find a better fear playlist
+        params["playlist"]='5wiHHPmokzB3xNxsB1Gzs9';
+        params["user"]='spotify';
     } else {
-
+        params["playlist"]='4hOKQuZbraPDIfaGbM3lKI';
+        params["user"]='spotify';
     }
-    // request({url:spotifyurl + params["user"] + 'playlists/' + params["playlist"]})
-  });
+
+    //get Tracks
+    spotifyApi.getPlaylistTracks(params["user"], params["playlist"], { 'offset' : 1, 'limit' : 100, 'fields' : 'items' })
+      .then(function(data) {
+        var items = data.body['items'];
+        var randVal = Math.floor(Math.random() * items.length);
+        elm=items[randVal];
+          var trk = elm.track;
+          //console.log(trk.id);
+          res.send(trk.id);
+      }, function(err) {
+        console.log('Something went wrong!', err);
+    });
+    }, function(err) {
+          console.log('Something went wrong when retrieving an access token', err);
+    });
+});
 
 app.get('/emotion', function(req, res) {
   text = req.query.text;
@@ -74,11 +100,7 @@ app.get('/callback', function(req, res) {
 
 });
 
-app.listen(port, function() {
-    console.log('Listening on port ' + port);
-});
-
-function getAccessToken() {
+function getAccessToken(callback) {
   // Retrieve an access token.
   spotifyApi.clientCredentialsGrant()
     .then(function(data) {
@@ -91,3 +113,9 @@ function getAccessToken() {
           console.log('Something went wrong when retrieving an access token', err);
     });
 }
+
+app.listen(port, function() {
+    console.log('Listening on port ' + port);
+});
+
+
