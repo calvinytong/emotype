@@ -4,7 +4,8 @@
   "description": "emotype",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.x.x"
+    "express": "^4.x.x",
+    "request":"*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
