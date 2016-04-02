@@ -2,6 +2,32 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
 var request = require('request');
+var SpotifyWebApi = require('spotify-web-api-node');
+
+// credentials are optional
+// var spotifyApi = new SpotifyWebApi({
+//   clientId : '7aa17209a0744dba99ccba06f49e9681',
+//   clientSecret : 'a5c46bb79af74bfbb91d6d5bf69e622a',
+//   redirectUri : 'http://emotype.herokuapp.com/callback'
+// });
+
+var scopes = ['playlist-read-private', 'user-top-read'],
+    redirectUri = 'http://emotype.herokuapp.com/callback',
+    clientId = '7aa17209a0744dba99ccba06f49e9681',
+
+// Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
+var spotifyApi = new SpotifyWebApi({
+  redirectUri : redirectUri,
+  clientId : clientId
+});
+
+// Create the authorization URL
+var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+
+
+// https://accounts.spotify.com:443/authorize?client_id=5fe01282e44241328a84e7c5cc169165&response_type=code&redirect_uri=https://example.com/callback&scope=user-read-private%20user-read-email&state=some-state-of-my-choice
+console.log(authorizeURL);
+
 
 
 // var myText = "Whoa, AlchemyAPI's Node.js SDK is really great, I can't wait to build my app!";
@@ -9,7 +35,14 @@ var alchemyurl = 'http://gateway-a.watsonplatform.net/'
 var spotifyurl = 'https://api.spotify.com/v1/users/'
 var key = '73fdf24054081a04c8778d53196c022aac5195b8'
 
-app.get('/', function (req, res) { res.status(200).send('Hello world!') });
+app.get('/', function (req, res) {
+  res.status(200).send('Hello world!');
+  request.post('authorizeURL');
+});
+
+app.get('/callback', function(req,res) {
+  console.log(req);
+})
 
 app.get('/spotify', function(req,res) {
     var params = {
