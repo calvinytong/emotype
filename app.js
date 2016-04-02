@@ -41,6 +41,7 @@ app.get('/', function (req, res) {
 
 app.get('/callback', function(req,res) {
   console.log(req);
+  res.status(200).send('Hello World!');
 });
 
 app.get('/spotify', function(req,res) {
