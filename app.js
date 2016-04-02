@@ -10,25 +10,14 @@ var SpotifyWebApi = require('spotify-web-api-node');
 //   clientSecret : 'a5c46bb79af74bfbb91d6d5bf69e622a',
 //   redirectUri : 'http://emotype.herokuapp.com/callback'
 // });
-
-var scopes = ['playlist-read-private', 'user-top-read'],
-    redirectUri = 'http://emotype.herokuapp.com/callback',
-    clientId = '7aa17209a0744dba99ccba06f49e9681';
+var clientId = 'd5bd1bf929d44bb3ac0221465aea3639';
+var clientSecret = '9b1da54cbe6f445cba564f4f3738a3d5';
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
 var spotifyApi = new SpotifyWebApi({
-  redirectUri : redirectUri,
-  clientId : clientId
+  clientId : clientId,
+  clientSecret : clientSecret
 });
-
-// Create the authorization URL
-var authorizeURL = spotifyApi.createAuthorizeURL(scopes);
-
-
-// https://accounts.spotify.com:443/authorize?client_id=5fe01282e44241328a84e7c5cc169165&response_type=code&redirect_uri=https://example.com/callback&scope=user-read-private%20user-read-email&state=some-state-of-my-choice
-console.log(authorizeURL);
-
-
 
 // var myText = "Whoa, AlchemyAPI's Node.js SDK is really great, I can't wait to build my app!";
 var alchemyurl = 'http://gateway-a.watsonplatform.net/'
@@ -39,12 +28,8 @@ app.get('/', function (req, res) {
   res.status(200).send('Hello world!');
 });
 
-app.get('/callback', function(req,res) {
-  console.log(req);
-  res.status(200).send('Hello World!');
-});
-
 app.get('/spotify', function(req,res) {
+    getAccessToken();
     var params = {
         "playlist":null,
         "user":null
@@ -69,9 +54,6 @@ app.get('/spotify', function(req,res) {
     // request({url:spotifyurl + params["user"] + 'playlists/' + params["playlist"]})
   });
 
-
-
-
 app.get('/emotion', function(req, res) {
   text = req.query.text;
   var params = {
@@ -95,3 +77,17 @@ app.get('/callback', function(req, res) {
 app.listen(port, function() {
     console.log('Listening on port ' + port);
 });
+
+function getAccessToken() {
+  // Retrieve an access token.
+  spotifyApi.clientCredentialsGrant()
+    .then(function(data) {
+      console.log('The access token expires in ' + data.body['expires_in']);
+      console.log('The access token is ' + data.body['access_token']);
+
+      // Save the access token so that it's used in future calls
+      spotifyApi.setAccessToken(data.body['access_token']);
+    }, function(err) {
+          console.log('Something went wrong when retrieving an access token', err);
+    });
+}
