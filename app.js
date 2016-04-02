@@ -37,12 +37,11 @@ var key = '73fdf24054081a04c8778d53196c022aac5195b8'
 
 app.get('/', function (req, res) {
   res.status(200).send('Hello world!');
-  request.post('authorizeURL');
 });
 
 app.get('/callback', function(req,res) {
   console.log(req);
-})
+});
 
 app.get('/spotify', function(req,res) {
     var params = {
