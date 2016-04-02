@@ -10,7 +10,7 @@ var alchemyurl = 'http://gateway-a.watsonplatform.net/'
 app.get('/', function(req, res) {
   res.send('Hello World');
   var propertiesObject = { apikey:'test1', text:'textbody', outputMode: 'json' };
-  request({url:alchemyurl + 'calls/text/TextGetEmotion', qs = propertiesObject, function(err, response, body {
+  request({url:alchemyurl + 'calls/text/TextGetEmotion', qs = propertiesObject, function(err, response, body) {
       console.log("Get response: " + response.statusCode);
     });
   });
