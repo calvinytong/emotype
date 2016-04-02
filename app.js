@@ -8,7 +8,9 @@ var request = require('request');
 var alchemyurl = 'http://gateway-a.watsonplatform.net/'
 var key = '73fdf24054081a04c8778d53196c022aac5195b8'
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) { res.status(200).send('Hello world!') }); 
+
+app.get('/emotion', function(req, res) {
   text = req.query.text;
   var params = {
         "apikey": key,
