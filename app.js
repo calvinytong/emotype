@@ -25,7 +25,7 @@ var spotifyurl = 'https://api.spotify.com/v1/users/'
 var key = '73fdf24054081a04c8778d53196c022aac5195b8'
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join('public/index.html'));
+  res.send("hello");
 });
 
 app.get('/spotify', function(req,res) {
