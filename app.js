@@ -9,7 +9,7 @@ var alchemyurl = 'http://gateway-a.watsonplatform.net/'
 
 app.get('/', function(req, res) {
   res.send("hello world");
-  request({url:alchemyurl + calls/text/TextGetEmotion, qs:propertiesObject}, function(err, response, body) {
+  request({url:alchemyurl + 'calls/text/TextGetEmotion', qs:propertiesObject}, function(err, response, body) {
     console.log("Get response: " + response.statusCode);
   });
 });
