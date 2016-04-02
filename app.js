@@ -25,7 +25,7 @@ var spotifyurl = 'https://api.spotify.com/v1/users/'
 var key = '73fdf24054081a04c8778d53196c022aac5195b8'
 
 app.get('/', function (req, res) {
-  res.status(200).send('Hello world!');
+  res.sendFile(path.join('public/index.html'));
 });
 
 app.get('/spotify', function(req,res) {
@@ -117,5 +117,3 @@ function getAccessToken(callback) {
 app.listen(port, function() {
     console.log('Listening on port ' + port);
 });
-
-
