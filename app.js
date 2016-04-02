@@ -10,12 +10,12 @@ var key = '73fdf24054081a04c8778d53196c022aac5195b8'
 
 app.get('/', function(req, res) {
   res.send("hello world");
-  var params: {
+  var params =  {
         "apikey": key,
         "text": myText,
         "outputMode": "json",
         "showSourceText": 1
-      }
+      };
   request({url:alchemyurl + 'calls/text/TextGetEmotion', qs:params}, function(err, response, body) {
     console.log("Get response: " + response.statusCode);
   });
