@@ -4,8 +4,7 @@
   "description": "emotype",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.x.x",
-    "alchemy-api": "*"
+    "express": "^4.x.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
