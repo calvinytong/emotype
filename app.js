@@ -146,7 +146,6 @@ app.get('/addSong', function(req,res) {
             break;
           }
       }
-res.send("test1");
       //creates a playlist if one doesn't exist
       if(!listExists) {
         // Create a private playlist
