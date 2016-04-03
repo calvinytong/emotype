@@ -184,7 +184,7 @@ app.get('/spotify', function(req,res) {
       //creates a playlist if one doesn't exist
       if(!listExists) {
         // Create a private playlist
-        spotifyApi.createPlaylist('icelandman2', 'Emotype')
+        spotifyApi.createPlaylist(userid, 'Emotype')
           .then(function(data) {
             console.log('Created playlist!');
           }, function(err) {
