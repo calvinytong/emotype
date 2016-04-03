@@ -132,6 +132,7 @@ app.get('/spotify', function(req,res) {
         "playlist":null,
         "user":null
     };
+    res.send("test1");
     text = req.query.emotion;
     if(text==="joy") {
         params["playlist"]='6uTuhSs7qiEPfCI3QDHXsL';
