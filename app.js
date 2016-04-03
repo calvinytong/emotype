@@ -118,6 +118,7 @@ app.get('/spotify', function(req,res) {
     //getAccessToken(function(){});
     if(access_token != null) {
       spotifyApi.setAccessToken(access_token);
+      console.log(access_token);
     }
     else {
       res.send("please login");
