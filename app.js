@@ -117,7 +117,7 @@ app.get('/refresh_token', function(req, res) {
 });
 
 app.get('/spotify', function(req,res) {
-     //getAccessToken(function(){});
+     getAccessToken(function(){});
      res.send("oops");
     if(access_token != null) {
       spotifyApi.setAccessToken(access_token);
@@ -128,7 +128,7 @@ app.get('/spotify', function(req,res) {
       res.status(500);
     }
 
-    spotifyApi.setAccessToken('BQCJ5UmNXo6mmtF_hCpw-DgH6NKTJlyKQP0DyNDIaHVyTICplBHji8ZHax9I452iSBhvJqAKU2OdvGNsIa9rg4yvp-gkLywgU3-kpoDA4cTpnshl_J27hD7lu6bfnMjcH0UXvy7px1gfmp9ck6pm9WO4KSUpNGkcXYhillIaLEAP644ZTU13bWvwIxhRw3dYVI6I6TquZDdN68lTa_Ox_WG27bUyh-aQ3jH-e1lbwOPW4dcb78bY1FTwh0PZSY005-RkjEVyP7UYbYK43OxF222E-KTCUrhCiDxdjcHWGSzCreKclQVF');
+  //  spotifyApi.setAccessToken('BQCJ5UmNXo6mmtF_hCpw-DgH6NKTJlyKQP0DyNDIaHVyTICplBHji8ZHax9I452iSBhvJqAKU2OdvGNsIa9rg4yvp-gkLywgU3-kpoDA4cTpnshl_J27hD7lu6bfnMjcH0UXvy7px1gfmp9ck6pm9WO4KSUpNGkcXYhillIaLEAP644ZTU13bWvwIxhRw3dYVI6I6TquZDdN68lTa_Ox_WG27bUyh-aQ3jH-e1lbwOPW4dcb78bY1FTwh0PZSY005-RkjEVyP7UYbYK43OxF222E-KTCUrhCiDxdjcHWGSzCreKclQVF');
     var params = {
         "playlist":null,
         "user":null
