@@ -17,11 +17,12 @@ var client_secret = '9b1da54cbe6f445cba564f4f3738a3d5';
 // });
 
 // var myText = "Whoa, AlchemyAPI's Node.js SDK is really great, I can't wait to build my app!";
-var alchemyurl = 'http://gateway-a.watsonplatform.net/'
-var spotifyurl = 'https://api.spotify.com/v1/users/'
-var key = '73fdf24054081a04c8778d53196c022aac5195b8'
+var alchemyurl = 'http://gateway-a.watsonplatform.net/';
+var spotifyurl = 'https://api.spotify.com/v1/users/';
+var key = '73fdf24054081a04c8778d53196c022aac5195b8';
+var access_token = null;
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'));
 
 // app.get('/', function (req, res) {
 //   res.send("hello");
@@ -60,8 +61,8 @@ app.get('/callback', function(req, res) {
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
 
-        var access_token = body.access_token,
-            refresh_token = body.refresh_token;
+            access_token = body.access_token;
+            var refresh_token = body.refresh_token;
 
         var options = {
           url: 'https://api.spotify.com/v1/me',
@@ -115,14 +116,14 @@ app.get('/refresh_token', function(req, res) {
 
 app.get('/spotify', function(req,res) {
     //getAccessToken(function(){});
-    spotifyApi.clientCredentialsGrant()
-    .then(function(data) {
-      //console.log('The access token expires in ' + data.body['expires_in']);
-      //console.log('The access token is ' + data.body['access_token']);
-
-      // Save the access token so that it's used in future calls
-      spotifyApi.setAccessToken(data.body['access_token']);
-          var params = {
+    if(access_token != null) {
+      spotifyApi.setAccessToken(access_token);
+    }
+    else {
+      res.send("please login");
+      res.status(500);
+    }
+    var params = {
         "playlist":null,
         "user":null
     };
@@ -159,9 +160,6 @@ app.get('/spotify', function(req,res) {
           res.send(trk.id);
       }, function(err) {
         console.log('Something went wrong!', err);
-    });
-    }, function(err) {
-          console.log('Something went wrong when retrieving an access token', err);
     });
 });
 
