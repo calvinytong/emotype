@@ -183,7 +183,7 @@ app.get('/addSong', function(req,res) {
 
 
 app.get('/spotify', function(req,res) {
-    //getAccessToken(function(){});
+     //getAccessToken(function(){});
     if(access_token != null) {
       spotifyApi.setAccessToken(access_token);
       console.log(access_token);
@@ -191,7 +191,9 @@ app.get('/spotify', function(req,res) {
     else {
       res.send("please login");
       res.status(500);
-    }
+    } 
+
+    spotifyApi.setAccessToken('BQCJ5UmNXo6mmtF_hCpw-DgH6NKTJlyKQP0DyNDIaHVyTICplBHji8ZHax9I452iSBhvJqAKU2OdvGNsIa9rg4yvp-gkLywgU3-kpoDA4cTpnshl_J27hD7lu6bfnMjcH0UXvy7px1gfmp9ck6pm9WO4KSUpNGkcXYhillIaLEAP644ZTU13bWvwIxhRw3dYVI6I6TquZDdN68lTa_Ox_WG27bUyh-aQ3jH-e1lbwOPW4dcb78bY1FTwh0PZSY005-RkjEVyP7UYbYK43OxF222E-KTCUrhCiDxdjcHWGSzCreKclQVF');
     var params = {
         "playlist":null,
         "user":null
@@ -225,10 +227,62 @@ app.get('/spotify', function(req,res) {
         var randVal = Math.floor(Math.random() * items.length);
         elm=items[randVal];
           var trk = elm.track;
-          //console.log(trk.id);
-          res.send(trk.id);
+          console.log('reached');
+          var listExists = false;
+    var userid;
+    var listID;
+    song = trk.id;
+
+  spotifyApi.getMe()
+    .then(function(user) {
+      userid = user.body['id'];
+  spotifyApi.getUserPlaylists(userid)
+    .then(function(data) {
+      var items = data.body['items'];
+      for (i = 0; i < items.length; i++) { 
+          var place = items[i].id;
+          var name = items[i].name;
+          if(name==='Emotype') {
+            listExists = true;
+            listID = place;
+            break;
+          }
+      }
+
+      //creates a playlist if one doesn't exist
+      if(!listExists) {
+        // Create a private playlist
+        spotifyApi.createPlaylist('icelandman2', 'Emotype')
+          .then(function(data) {
+            console.log('Created playlist!');
+          }, function(err) {
+            console.log('Something went wrong!', err);
+          }); 
+      }
+
+      //add song to playlist
+      var trackID = 'spotify:track:' + song;
+      spotifyApi.addTracksToPlaylist(userid, listID, [trackID],
+        {
+          position : 0
+        })
+        .then(function(data) {
+          res.send('Added tracks to playlist!');
+
+        });
+
+    },function(err) { //lol not sure which is which
+      console.log('Something went wrong!', err);
   });
+    }, function(err) {
+      console.log('Something went wrong!', err);
+  });
+
+      }, function(err) {
+        console.log('Something went wrong!', err);
+    });
 });
+
 
 
 function getAccessToken(callback) {
