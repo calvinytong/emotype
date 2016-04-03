@@ -156,7 +156,6 @@ app.get('/addSong', function(req,res) {
             console.log('Something went wrong!', err);
           }); 
       }
-res.send("test2");
       //add song to playlist
       var trackID = 'spotify:track:' + song;
       spotifyApi.addTracksToPlaylist(userid, listID, [trackID],
@@ -166,6 +165,8 @@ res.send("test2");
         .then(function(data) {
           res.send('Added tracks to playlist!');
 
+        }, function(err) {
+          res.send('Couldn\'t add track to playlist :(');
         });
 res.send("test3");
     },function(err) { //lol not sure which is which
