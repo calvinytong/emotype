@@ -6,8 +6,7 @@ var SpotifyWebApi = require('spotify-web-api-node');
 var querystring = require('querystring');
 
 // credentials are optional
-//var redirect_uri = 'http://emotype.herokuapp.com/callback';
-var redirect_uri = 'emotype.herokuapp.com/callback';
+var redirect_uri = 'http://emotype.herokuapp.com/callback';
 var client_id = 'd5bd1bf929d44bb3ac0221465aea3639';
 var client_secret = '9b1da54cbe6f445cba564f4f3738a3d5';
 
