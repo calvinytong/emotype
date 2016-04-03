@@ -30,7 +30,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/login', function(req,res) {
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'playlist-read-private playlist-modify-public user-read-private user-library-read user-read-email user-follow-modify playlist-read-collaborative playlist-modify-private user-library-modify user-read-birthdate user-follow-read user-top-read';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -120,15 +120,15 @@ app.get('/addSong', function(req,res) {
     var userid;
     var listID;
     song = req.query.song;
-   /**if(access_token != null) {
+   if(access_token != null) {
       spotifyApi.setAccessToken(access_token);
       console.log(access_token);
     }
     else {
       res.send("please login");
       res.status(500);
-    }*/
-    spotifyApi.setAccessToken('BQCIXuZfr4NTzBPinftvZxS6UZBf03pPrLXu_zEjDZFwwaP_-pmfJshRLqiiV381OXXwjchWUH-TdSWMnACCblkjbWWte7Buvts0sm-4ZHbPKaoGJykc0OGfU_yM9KTv3r2kk3982x-FQitWGKzpxEKmwne1fYIQoPsOAuR9IdXa0rI9UE-_zxcp355XqO4kFmUyOuzzlTVbLEhXpxi2sOTrgRj5WtbsZyHjN4v_cfA6L2R3yjL7-AYV810B0L9IVdudbLrIpuo1TFAz2HWJkesHK8L60qb42Jr_ILGkO38gD0BdhfjZ');
+    }
+    //spotifyApi.setAccessToken('BQCIXuZfr4NTzBPinftvZxS6UZBf03pPrLXu_zEjDZFwwaP_-pmfJshRLqiiV381OXXwjchWUH-TdSWMnACCblkjbWWte7Buvts0sm-4ZHbPKaoGJykc0OGfU_yM9KTv3r2kk3982x-FQitWGKzpxEKmwne1fYIQoPsOAuR9IdXa0rI9UE-_zxcp355XqO4kFmUyOuzzlTVbLEhXpxi2sOTrgRj5WtbsZyHjN4v_cfA6L2R3yjL7-AYV810B0L9IVdudbLrIpuo1TFAz2HWJkesHK8L60qb42Jr_ILGkO38gD0BdhfjZ');
     
     
 
