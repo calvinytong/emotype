@@ -128,7 +128,7 @@ app.get('/addSong', function(req,res) {
       res.send("please login");
       res.status(500);
     }*/
-    spotifyApi.setAccessToken('BQCVCJSgIcKZhfhaYESCJ_u7zBiSFjUoDhfwmnZAEKid7hy1UnpQ-bf2lz5knvwrKZyKY402agGat0gShuRtxivPIIFkbO1ug5j45OM3X9YL2NwhkgnoTTtdc5KGKkjVWYz36exlnAVQQSDtZRn0fMohxeDH5oD7_HkMftxjm15UKKlJYZlYyAmbCQcFUnrVZQGvKH0kgzSEUhad8zE9XMuXJUxNeIrn12uCz1VjwlPxCx-tAQc-wW3NS7nVup0pwdPMVc5Eq5QNrYNOnJNlgQkLDphGRSOcdU6PE08TkP2jGF_0ojn-');
+    spotifyApi.setAccessToken('BQCIXuZfr4NTzBPinftvZxS6UZBf03pPrLXu_zEjDZFwwaP_-pmfJshRLqiiV381OXXwjchWUH-TdSWMnACCblkjbWWte7Buvts0sm-4ZHbPKaoGJykc0OGfU_yM9KTv3r2kk3982x-FQitWGKzpxEKmwne1fYIQoPsOAuR9IdXa0rI9UE-_zxcp355XqO4kFmUyOuzzlTVbLEhXpxi2sOTrgRj5WtbsZyHjN4v_cfA6L2R3yjL7-AYV810B0L9IVdudbLrIpuo1TFAz2HWJkesHK8L60qb42Jr_ILGkO38gD0BdhfjZ');
     
     
 
