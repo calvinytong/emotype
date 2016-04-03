@@ -166,7 +166,7 @@ app.get('/addSong', function(req,res) {
           res.send('Added tracks to playlist!');
 
         }, function(err) {
-          res.send('Couldn\'t add track to playlist :(');
+          res.send('Couldn\'t add track to playlist :(' + JSON.stringify(err));
         });
     },function(err) { //lol not sure which is which
       console.log('Something went wrong!', err);
