@@ -11,10 +11,10 @@ var client_id = 'd5bd1bf929d44bb3ac0221465aea3639';
 var client_secret = '9b1da54cbe6f445cba564f4f3738a3d5';
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
-// var spotifyApi = new SpotifyWebApi({
-//   clientId : clientId,
-//   clientSecret : clientSecret
-// });
+var spotifyApi = new SpotifyWebApi({
+  clientId : client_id,
+  clientSecret : client_secret
+});
 
 // var myText = "Whoa, AlchemyAPI's Node.js SDK is really great, I can't wait to build my app!";
 var alchemyurl = 'http://gateway-a.watsonplatform.net/';
