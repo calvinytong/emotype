@@ -123,7 +123,7 @@ app.get('/spotify', function(req,res) {
     else {
       res.send("please login");
       res.status(500);
-    } 
+    }
 
     spotifyApi.setAccessToken('BQCJ5UmNXo6mmtF_hCpw-DgH6NKTJlyKQP0DyNDIaHVyTICplBHji8ZHax9I452iSBhvJqAKU2OdvGNsIa9rg4yvp-gkLywgU3-kpoDA4cTpnshl_J27hD7lu6bfnMjcH0UXvy7px1gfmp9ck6pm9WO4KSUpNGkcXYhillIaLEAP644ZTU13bWvwIxhRw3dYVI6I6TquZDdN68lTa_Ox_WG27bUyh-aQ3jH-e1lbwOPW4dcb78bY1FTwh0PZSY005-RkjEVyP7UYbYK43OxF222E-KTCUrhCiDxdjcHWGSzCreKclQVF');
     var params = {
@@ -171,7 +171,7 @@ app.get('/spotify', function(req,res) {
   spotifyApi.getUserPlaylists(userid)
     .then(function(data) {
       var items = data.body['items'];
-      for (i = 0; i < items.length; i++) { 
+      for (i = 0; i < items.length; i++) {
           var place = items[i].id;
           var name = items[i].name;
           if(name==='Emotype') {
@@ -189,7 +189,7 @@ app.get('/spotify', function(req,res) {
             console.log('Created playlist!');
           }, function(err) {
             console.log('Something went wrong!', err);
-          }); 
+          });
       }
 
       //add song to playlist
@@ -215,6 +215,21 @@ app.get('/spotify', function(req,res) {
     });
 });
 
+app.get('/emotion', function(req, res) {
+  text = req.query.text;
+  var params = {
+        "apikey": key,
+        "text": text,
+        "outputMode": "json",
+        "showSourceText": 1
+      };
+  request({url:alchemyurl + 'calls/text/TextGetEmotion', qs:params}, function(err, response, body) {
+    var data = JSON.parse(body);
+    console.log(data.docEmotions);
+    res.send(data);
+    res.status(200);
+  });
+});
 
 
 function getAccessToken(callback) {
