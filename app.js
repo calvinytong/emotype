@@ -168,7 +168,6 @@ app.get('/addSong', function(req,res) {
         }, function(err) {
           res.send('Couldn\'t add track to playlist :(');
         });
-res.send("test3");
     },function(err) { //lol not sure which is which
       console.log('Something went wrong!', err);
   });
