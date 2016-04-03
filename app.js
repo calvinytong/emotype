@@ -129,7 +129,6 @@ app.get('/addSong', function(req,res) {
       res.status(500);
     }
     
-    res.send("test");
     
 
   spotifyApi.getMe()
@@ -147,7 +146,7 @@ app.get('/addSong', function(req,res) {
             break;
           }
       }
-
+res.send("test1");
       //creates a playlist if one doesn't exist
       if(!listExists) {
         // Create a private playlist
@@ -158,7 +157,7 @@ app.get('/addSong', function(req,res) {
             console.log('Something went wrong!', err);
           }); 
       }
-
+res.send("test2");
       //add song to playlist
       var trackID = 'spotify:track:' + song;
       spotifyApi.addTracksToPlaylist(userid, listID, [trackID],
@@ -169,7 +168,7 @@ app.get('/addSong', function(req,res) {
           res.send('Added tracks to playlist!');
 
         });
-
+res.send("test3");
     },function(err) { //lol not sure which is which
       console.log('Something went wrong!', err);
   });
