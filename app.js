@@ -137,6 +137,7 @@ app.get('/addSong', function(req,res) {
   spotifyApi.getUserPlaylists(userid)
     .then(function(data) {
       var items = data.body['items'];
+      res.send(JSON.stringify(items));
       for (i = 0; i < items.length; i++) { 
           var place = items[i].id;
           var name = items[i].name;
@@ -166,7 +167,7 @@ app.get('/addSong', function(req,res) {
           res.send('Added tracks to playlist!');
 
         }, function(err) {
-          res.send('Couldn\'t add track to playlist :(' + JSON.stringify(err));
+          res.send('Couldn\'t add track to playlist :(');
         });
     },function(err) { //lol not sure which is which
       console.log('Something went wrong!', err);
