@@ -160,6 +160,7 @@ app.get('/addSong', function(req,res) {
       }
       //add song to playlist
       var trackID = 'spotify:track:' + song;
+      res.send(trackID);
       spotifyApi.addTracksToPlaylist(userid, listID, [trackID],
         {
           position : 0
