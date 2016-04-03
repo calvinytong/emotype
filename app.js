@@ -6,7 +6,8 @@ var SpotifyWebApi = require('spotify-web-api-node');
 var querystring = require('querystring');
 
 // credentials are optional
-var redirect_uri = 'http://emotype.herokuapp.com/callback';
+//var redirect_uri = 'http://emotype.herokuapp.com/callback';
+var redirect_uri = 'localhost:3000/callback';
 var client_id = 'd5bd1bf929d44bb3ac0221465aea3639';
 var client_secret = '9b1da54cbe6f445cba564f4f3738a3d5';
 
@@ -113,6 +114,71 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
+
+
+app.get('/addSong', function(req,res) {
+    var listExists = false;
+    var userid;
+    var listID;
+    song = req.query.song;
+    if(access_token != null) {
+      spotifyApi.setAccessToken(access_token);
+      console.log(access_token);
+    }
+    else {
+      res.send("please login");
+      res.status(500);
+    }
+    
+    
+  spotifyApi.getMe()
+    .then(function(user) {
+      userid = user.body['id'];
+  spotifyApi.getUserPlaylists(userid)
+    .then(function(data) {
+      var items = data.body['items'];
+      for (i = 0; i < items.length; i++) { 
+          var place = items[i].id;
+          var name = items[i].name;
+          if(name==='Emotype') {
+            listExists = true;
+            listID = place;
+            break;
+          }
+      }
+
+      //creates a playlist if one doesn't exist
+      if(!listExists) {
+        // Create a private playlist
+        spotifyApi.createPlaylist('icelandman2', 'Emotype')
+          .then(function(data) {
+            console.log('Created playlist!');
+          }, function(err) {
+            console.log('Something went wrong!', err);
+          }); 
+      }
+
+      //add song to playlist
+      var trackID = 'spotify:track:' + song;
+      spotifyApi.addTracksToPlaylist(userid, listID, [trackID],
+        {
+          position : 0
+        })
+        .then(function(data) {
+          res.send('Added tracks to playlist!');
+
+        });
+
+    },function(err) { //lol not sure which is which
+      console.log('Something went wrong!', err);
+  });
+    }, function(err) {
+      console.log('Something went wrong!', err);
+  });
+
+
+});
+
 
 app.get('/spotify', function(req,res) {
     //getAccessToken(function(){});
