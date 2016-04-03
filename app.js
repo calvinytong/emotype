@@ -3,11 +3,12 @@ var app = express();
 var port = process.env.PORT || 3000;
 var request = require('request');
 var SpotifyWebApi = require('spotify-web-api-node');
+var querystring = require('querystring');
 
 // credentials are optional
-var redirectUri = 'http://emotype.herokuapp.com/callback';
-var clientId = 'd5bd1bf929d44bb3ac0221465aea3639';
-var clientSecret = '9b1da54cbe6f445cba564f4f3738a3d5';
+var redirect_uri = 'http://emotype.herokuapp.com/callback';
+var client_id = 'd5bd1bf929d44bb3ac0221465aea3639';
+var client_secret = '9b1da54cbe6f445cba564f4f3738a3d5';
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
 // var spotifyApi = new SpotifyWebApi({
@@ -88,6 +89,29 @@ app.get('/callback', function(req, res) {
     });
 });
 
+app.get('/refresh_token', function(req, res) {
+
+  // requesting access token from refresh token
+  var refresh_token = req.query.refresh_token;
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    form: {
+      grant_type: 'refresh_token',
+      refresh_token: refresh_token
+    },
+    json: true
+  };
+
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var access_token = body.access_token;
+      res.send({
+        'access_token': access_token
+      });
+    }
+  });
+});
 
 app.get('/spotify', function(req,res) {
     //getAccessToken(function(){});
