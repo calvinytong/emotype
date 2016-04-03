@@ -120,14 +120,15 @@ app.get('/addSong', function(req,res) {
     var userid;
     var listID;
     song = req.query.song;
-   if(access_token != null) {
+   /**if(access_token != null) {
       spotifyApi.setAccessToken(access_token);
       console.log(access_token);
     }
     else {
       res.send("please login");
       res.status(500);
-    }
+    }*/
+    spotifyApi.setAccessToken('BQCVCJSgIcKZhfhaYESCJ_u7zBiSFjUoDhfwmnZAEKid7hy1UnpQ-bf2lz5knvwrKZyKY402agGat0gShuRtxivPIIFkbO1ug5j45OM3X9YL2NwhkgnoTTtdc5KGKkjVWYz36exlnAVQQSDtZRn0fMohxeDH5oD7_HkMftxjm15UKKlJYZlYyAmbCQcFUnrVZQGvKH0kgzSEUhad8zE9XMuXJUxNeIrn12uCz1VjwlPxCx-tAQc-wW3NS7nVup0pwdPMVc5Eq5QNrYNOnJNlgQkLDphGRSOcdU6PE08TkP2jGF_0ojn-');
     
     
 
