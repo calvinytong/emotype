@@ -120,15 +120,16 @@ app.get('/addSong', function(req,res) {
     var userid;
     var listID;
     song = req.query.song;
-   /** if(access_token != null) {
+   if(access_token != null) {
       spotifyApi.setAccessToken(access_token);
       console.log(access_token);
     }
     else {
       res.send("please login");
       res.status(500);
-    }*/
-    spotifyApi.setAccessToken('BQCYLsjG4VylL16W_qoTFx7b5v8SKQQEtJU9QydwY0ECFS2RG_pbYsU69si77CFhEV8RWk4W9B5MTB8xBiSjNO1plzk4M5Usr1-YdCBClu0_vSmYWky48QZX8pK7pJpHWc9d3GrVQfljD8EkvHdU6rTqnKsbs8QwALVAAexo_Pd4aYj5Nmv3iwd88pH7ucN-JNdzum9U5qn0dPqHl1IYFGWdVqN3fz3sFLfv6zYTx6PorKAso_vOwd9peIyIsjL-V6YVLj3brHJib2GGyd0RTJwHuMwC5MwXIwcEGYMwEF_9nup77sx6');
+    }
+    
+    res.send("test");
     
 
   spotifyApi.getMe()
