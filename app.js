@@ -5,28 +5,89 @@ var request = require('request');
 var SpotifyWebApi = require('spotify-web-api-node');
 
 // credentials are optional
-// var spotifyApi = new SpotifyWebApi({
-//   clientId : '7aa17209a0744dba99ccba06f49e9681',
-//   clientSecret : 'a5c46bb79af74bfbb91d6d5bf69e622a',
-//   redirectUri : 'http://emotype.herokuapp.com/callback'
-// });
+var redirectUri = 'http://emotype.herokuapp.com/callback';
 var clientId = 'd5bd1bf929d44bb3ac0221465aea3639';
 var clientSecret = '9b1da54cbe6f445cba564f4f3738a3d5';
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
-var spotifyApi = new SpotifyWebApi({
-  clientId : clientId,
-  clientSecret : clientSecret
-});
+// var spotifyApi = new SpotifyWebApi({
+//   clientId : clientId,
+//   clientSecret : clientSecret
+// });
 
 // var myText = "Whoa, AlchemyAPI's Node.js SDK is really great, I can't wait to build my app!";
 var alchemyurl = 'http://gateway-a.watsonplatform.net/'
 var spotifyurl = 'https://api.spotify.com/v1/users/'
 var key = '73fdf24054081a04c8778d53196c022aac5195b8'
 
-app.get('/', function (req, res) {
-  res.send("hello");
+app.use(express.static(__dirname + '/public'))
+
+// app.get('/', function (req, res) {
+//   res.send("hello");
+// });
+
+app.get('/login', function(req,res) {
+  // your application requests authorization
+  var scope = 'user-read-private user-read-email';
+  res.redirect('https://accounts.spotify.com/authorize?' +
+    querystring.stringify({
+      response_type: 'code',
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+    })
+  );
 });
+
+app.get('/callback', function(req, res) {
+
+  var code = req.query.code || null;
+
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    form: {
+      code: code,
+      redirect_uri: redirect_uri,
+      grant_type: 'authorization_code'
+    },
+    headers: {
+      'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+    },
+    json: true
+  };
+
+    request.post(authOptions, function(error, response, body) {
+      if (!error && response.statusCode === 200) {
+
+        var access_token = body.access_token,
+            refresh_token = body.refresh_token;
+
+        var options = {
+          url: 'https://api.spotify.com/v1/me',
+          headers: { 'Authorization': 'Bearer ' + access_token },
+          json: true
+        };
+
+        // use the access token to access the Spotify Web API
+        request.get(options, function(error, response, body) {
+          console.log(body);
+        });
+
+        // we can also pass the token to the browser to make requests from there
+        res.redirect('/#' +
+          querystring.stringify({
+            access_token: access_token,
+            refresh_token: refresh_token
+          }));
+      } else {
+        res.redirect('/#' +
+          querystring.stringify({
+            error: 'invalid_token'
+          }));
+      }
+    });
+});
+
 
 app.get('/spotify', function(req,res) {
     //getAccessToken(function(){});
@@ -96,9 +157,6 @@ app.get('/emotion', function(req, res) {
   });
 });
 
-app.get('/callback', function(req, res) {
-
-});
 
 function getAccessToken(callback) {
   // Retrieve an access token.
