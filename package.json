@@ -1,7 +1,7 @@
 {
-  "name": "emotype",
+  "name": "emotype2",
   "version": "1.0.0",
-  "description": "emotype",
+  "description": "emotype2",
   "main": "index.js",
   "dependencies": {
     "express": "^4.x.x",
