@@ -7,8 +7,10 @@ var querystring = require('querystring');
 
 // credentials are optional
 var redirect_uri = 'http://emotype2.herokuapp.com/callback';
-var client_id = 'd5bd1bf929d44bb3ac0221465aea3639';
-var client_secret = '9b1da54cbe6f445cba564f4f3738a3d5';
+//var client_id = 'd5bd1bf929d44bb3ac0221465aea3639';
+var client_id = 'aeb94020c7c84480beb377c349e4936a';
+var client_secret = '2e75be7852d04a5fb0300e29758651f2';
+//var client_secret = '9b1da54cbe6f445cba564f4f3738a3d5';
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
 var spotifyApi = new SpotifyWebApi({
