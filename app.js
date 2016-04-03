@@ -138,7 +138,7 @@ app.get('/addSong', function(req,res) {
   spotifyApi.getUserPlaylists(userid)
     .then(function(data) {
       var items = data.body['items'];
-      res.send(JSON.stringify(items));
+      //res.send(JSON.stringify(items));
       for (i = 0; i < items.length; i++) { 
           var place = items[i].id;
           var name = items[i].name;
