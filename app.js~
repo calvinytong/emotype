@@ -116,22 +116,6 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-app.get('/emotion', function(req, res) {
-	text = req.query.text;
-	var params = {
-	    "apikey": key,
-	    "text": text,
-	    "outputMode": "json",
-	    "showSourceText": 1
-	};
-	request({url:alchemyurl + 'calls/text/TextGetEmotion', qs:params}, function(err, response, body) {
-		var data = JSON.parse(body);
-		console.log(data.docEmotions);
-		res.send(data);
-		res.status(200);
-	    });
-    });
-
 app.get('/spotify', function(req,res) {
      //getAccessToken(function(){});
      //res.send("oops");
